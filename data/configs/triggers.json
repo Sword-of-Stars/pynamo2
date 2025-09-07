@@ -1,0 +1,7 @@
+{
+    "hello":{
+        "condition":"pass",
+        "effect":"pass",
+        "description":"Airborne!"
+    }
+}

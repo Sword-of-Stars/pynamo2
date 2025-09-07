@@ -1,0 +1,11 @@
+1) Documentation
+2) onion skin for layers, make adaptive brush
+3) enable seamless data transfer between game and level editor
+4) Fix the tileset
+5) Make second screen for file loading/saving
+6) implement trigger system (design too)
+
+
+BUGS SQUISHED
+1) brush updating
+2) onion skin for layers, make adaptive brush

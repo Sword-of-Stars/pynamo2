@@ -1,0 +1,17 @@
+Pynamo is a generally applicable library built on Pygame
+It is designed to simplify the game-making process and reduce redundancy in code
+
+24 July 2023
+- Built basic element-based framework
+- I'm copying a lot of code from DFP, and as the purpose of this is to learnm
+  I should really refrain from doing so
+
+4 October 2024
+It's been quite a while since last we left our heroes. But now, here we are, ready to get right back at It
+
+I did so much in this update that it's virtually impossible to document it all. My vision for this project
+is to make a streamlined framework that's very efficient and modular. I want to create a game with inverse
+kinematics, and ultimately, want this on a portfolio site/Steam
+
+15 July 2025
+Wow, it's been a hot minute. Let's get back into it, seriously.

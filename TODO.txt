@@ -1,0 +1,112 @@
+1) Make a display on the screen
+2) Build sprite database
+3) Conceptualize inputs (json files, configs, etc.)
+
+NEXT
+1) Handle single-loading classes with inheritence
+2) Make player and enable moving on screen
+3) enable player collisions with obstacles
+
+Don't worry about perfect implementation
+Get quick-and-dirty, polish it up a bit, then move on
+
+### 12-17
+Make comprehensive NavMesh system
+-> prevent recomputing of obstacles
+-> implement LOS algorithms (dirty, then chunky)
+Make trigger system
+-> edit in level editor, export to pynamo engine
+
+## 12-24
+Merry Christmas Eve. I'm struggling to make progress, and I need to stop spinning my wheels about this whole process
+
+Here's some tasks I can try to accomplish:
+1) Finish the inverse kinematics creature
+ a) implement joint constraints
+ b) obstacle avoidance
+ c) grab positions
+  -> involves LOS detection for grab positions
+  -> optimal solution would involve computing a navmesh, not sure if that's needed, though, 
+     if I do a chunk-based solution
+ d) collisions/arms stopped by obstacles 
+  -> I feel like this can be solved with gradient descent
+ e) multiple arms, centralized intelligence, decision-making
+ f) art and making it look good
+ - That in and of itself is a monumental task, but doable
+
+2) Improve the level editor
+ a) Add support for another tileset
+ b) add asset support
+ c) triggers
+  -> display name on hover
+  -> build description box
+  -> show list of current triggers, jump-to feature
+ d) clean up save/load feature with easygui
+  -> allow for cleaner load/save options
+ e) enable layer selection (select and move tiles across the screen)
+ f) keyboard shortcuts?
+ - Not all of these tasks are crucial, but they'd make level design so much more 
+   effecient and a whole lot easier
+
+3) Art, VFX/SFX, and Sound Design
+ a) need to create character art
+  -> Brood mother (only one for now)
+ b) make entities
+  -> Spiders (brood mother, guards, player)
+  -> ants (queen, worker/drone, fire ants, armored)
+ c) environment design
+ d) second tileset
+  -> also need a LOT more assets; Castle Darkheart felt far too empty
+ e) title theme/intro design
+
+4) Gameplay
+ a) create MVP
+  -> who is the protagonist?
+  -> how do they move? attack? interact with objects?
+  -> what are their special abilities
+ b) make dialogue boxes
+ c) polish
+  -> dynamic grass
+  -> vines
+  -> spiderwebs (verlet integration)
+  -> particle effects (pheremone, impacts/dust, leaves)
+
+The workflow, then, should be as follows:
+1) character creation, implementation, and design
+-> fix IK creatures
+ i) make los culling for unreachable positions
+ ii) implement chunk-based reach
+ iii) coordinate arms within a creature
+ iv) build character controls (jumping, web-slinging)
+ v) character art
+
+If I can move the character inside the world, even just a rough draft, 
+before the new year, that will be a win
+
+## 12-25
+Merry Christmas
+
+I made a rudimentary IK movement algorithm. It's pretty ugly, and relies on the Level Editor; future iterations will need to incorporate
+better coding and implementation
+
+I know how to accomplish tasks with joint constraints, and obstacle avoidance is accomplishable with gradient-descent approaches
+
+Given how janky the system will be, do I want the player to be bound by a physics engine?
+Rain World saw success with that, but again, it was a stand-alone artistic piece
+My audience is primarily the Night of the Arts conference; needs to be digestible and easily playable
+I could have it be control-driven, with IK art. That should be a good combination of art and math to sustain the illusion
+
+Task list
+- fix autotile with blank centers
+-> looks a little janky, could be cleaned up a lot
+
+August 2nd, 2025
+-> just trying to have obstacles render appropriately
+-> right now, I'm only handling collisions for obstacles on screen
+-> I'd like to make that more specific to the entities in the vicinity
+
+I'm sick of fighting the rect/pos battle; I just want to work with one (preferrably just rect)
+
+So what I managed to do today was pretty neat:
+> consolidated player and enemies under a single physics entity
+> removed a lot of duplicate code
