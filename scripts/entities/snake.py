@@ -3,9 +3,6 @@ import pygame, math
 from scripts.entities.entity import PhysicsEntity
 from scripts.asset_manager import AssetManager
 
-from scripts.utils.game_math import sign
-from scripts.utils.misc import flatten, flatten_dict
-
 class Snake(PhysicsEntity):
     '''
     A class for the player. Note that this isn't meant to
@@ -47,9 +44,7 @@ class Snake(PhysicsEntity):
 
 
     def calaulate_vel(self):
-
         self.vel[1] = min(self.MAX_FALL_SPEED, self.vel[1]+1)
-
 
     def update(self, obstacles):
 

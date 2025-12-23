@@ -18,7 +18,7 @@ class Animation():
         self.alive = True
 
     def play(self):
-        # plays the animation, advancing igf appropriate
+        # plays the animation, advancing if appropriate
         self.alive = True
         self.current_frame += 1/self.FPS
 
@@ -60,8 +60,10 @@ def extract_spritesheet(filepath, sprite_width, sprite_height, loops, rect, titl
 
         if row_frames:
             if titles == None:
-                animations[f"anim_row{row}"] = Animation(loops[row], row_frames, 5, rect)
+                name = f"anim_row{row}"
             else:
-                animations[f"{titles[row]}"] = Animation(loops[row], row_frames, 5, rect)
+                name = f"{titles[row]}"
+            
+            animations[name] = Animation(loops[row], row_frames, 5, rect)
 
     return animations

@@ -12,7 +12,7 @@ class AssetManager:
     _assets = {}
     
     @staticmethod
-    def load_asset(name, category="sfx", data=[]):
+    def load_asset(name, category, data=[]):
         '''
         Loads an asset
         

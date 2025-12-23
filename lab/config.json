@@ -1,14 +1,17 @@
 {
-    "button": {
-      "position": [125, 350],
-      "size": [200, 80],
-      "default_color": [100, 200, 150],
-      "hover_color": [150, 250, 200],
-      "text": "Play",
-      "font_size": 40,
-      "font_color": [0, 0, 0],
-      "hover_sound": "hover_sound.wav",
-      "click_sound": "click_sound.wav"
+    "buttons": [
+      {
+        "position": [125, 350],
+        "size": [200, 80],
+        "default_color": [100, 200, 150],
+        "hover_color": [150, 250, 200],
+        "text": "Play",
+        "font_size": 40,
+        "font_color": [0, 0, 0],
+        "hover_sound": "hover_sound.wav",
+        "click_sound": "click_sound.wav",
+        "args": ["main"]
     }
+  ]
   }
   

@@ -39,6 +39,9 @@ class Entity():
         
 
 class PhysicsEntity(Entity):
+    """
+    A physics entity, irrespective of the type of game
+    """
     def __init__(self, type, pos):
         super().__init__(type, pos)
 
@@ -90,7 +93,4 @@ class PhysicsEntity(Entity):
 
     def collides_with(self, entity):
         return self.rect.colliderect(entity.rect)
-    
-    def jump(self):
-        if self.can_jump:
-            self.vel[1] = -self.JUMP_SPEED
+

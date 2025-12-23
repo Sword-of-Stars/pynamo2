@@ -110,3 +110,6 @@ I'm sick of fighting the rect/pos battle; I just want to work with one (preferra
 So what I managed to do today was pretty neat:
 > consolidated player and enemies under a single physics entity
 > removed a lot of duplicate code
+
+12-22-25
+- I need to clean up the animation structure. Well, actually until it breaks, don't fix it

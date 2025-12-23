@@ -195,6 +195,9 @@ class Camera():
         return chunk_map
     
     def get_relevant_obstacles(self, entity, obstacles):
+        """
+        Gets the obstacles relevant to the entity based on its position
+        """
         relevant_chunks = self.get_chunks_in_range_from_pos(entity.rect.topleft)
         return flatten([obstacles[f"{x};{y}"] for x, y in relevant_chunks])
     

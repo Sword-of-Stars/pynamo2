@@ -1,7 +1,7 @@
 import pygame
 
 from scripts.game.states.state_machine import State
-from scripts.ui.button import load_button_from_config
+from scripts.ui.button import load_buttons_from_config
 
 class Menu(State):
     '''
@@ -16,7 +16,7 @@ class Menu(State):
 
         self.game = game
 
-        self.button = load_button_from_config("lab/config.json")
+        self.buttons = load_buttons_from_config("lab/config.json")
         self.background = pygame.image.load("data/images/TitleScreen.png").convert_alpha()
         self.background = pygame.transform.scale_by(self.background, 0.6)
 
@@ -38,11 +38,14 @@ class Menu(State):
         mouse_pos = pygame.mouse.get_pos()
         mouse_click = pygame.mouse.get_pressed()[0] # change to an event
 
-        if self.button.update(mouse_pos, mouse_click):
-            self.state_machine.set_state("main")
+        for button in self.buttons:
+            if button.update(mouse_pos, mouse_click):
+                self.state_machine.set_state(*button.args)
 
         self.game.camera.display.blit(self.background, (-40,0))
-        self.game.camera.to_render(self.button)
+
+        for button in self.buttons:
+            self.game.camera.to_render(button)
 
         self.game.camera.draw_world()
         self.game.camera.update()

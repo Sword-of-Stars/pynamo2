@@ -1,15 +1,14 @@
 import pygame
 
-
 from scripts.game.states.state_machine import State
 from scripts.tiles.tilemap import Tilemap
 from scripts.assets.background import Background
 from scripts.entities.snake import Snake
 from scripts.rendering.camera import Camera
+from scripts.entities.player import Player
 
 from scripts.utils.load_level import load_level_updated
 from scripts.utils.misc import flatten_dict, flatten
-
 
 class Main(State):
     def __init__(self, game=None):
@@ -17,10 +16,11 @@ class Main(State):
 
         self.game = game
         self.camera: Camera = game.camera
-        self.player = game.player
+        self.player: Player = game.player
 
         self.tilemap = Tilemap()
 
+        # TODO: load all of these elsewhere, not here
         self.level_data = load_level_updated("data/levels/level_1.json", self.tilemap)
         self.obstacles = self.level_data["obstacles"]
         self.triggers = self.level_data["triggers"]
@@ -49,6 +49,7 @@ class Main(State):
 
         self.player.update(self.game.event_handler.arrow_keys, 
                            self.camera.get_relevant_obstacles(self.player, self.obstacles))
+        
         dx, dy = self.camera.move(self.player)
         self.player.move_camera(self.camera, dx, dy)
         self.camera.to_render(self.player)
@@ -69,7 +70,7 @@ class Main(State):
 
             self.camera.to_render(enemy)
 
-        self.camera.display.blit(self.background, (0,-100))
+        #self.camera.display.blit(self.background, (0,-100)) # should handle backgrounds natively with to_render
 
         self.camera.draw_world()
 

@@ -15,3 +15,13 @@ kinematics, and ultimately, want this on a portfolio site/Steam
 
 15 July 2025
 Wow, it's been a hot minute. Let's get back into it, seriously.
+
+14 October 2025
+Can't believe I haven't worked on this seriously in a while. I really just want to make something cool.
+
+Here's some tangible steps to get there:
+1) Clean up animation structure
+2) Wrap some things in an element singleton
+3) Clean up asset manager; currently, it's really messy
+4) Make compatible with top-down perspective
+5) Cull unneeded inputs

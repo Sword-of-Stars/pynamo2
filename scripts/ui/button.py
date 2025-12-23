@@ -20,11 +20,14 @@ class Button():
         self.hover_sound_path = config["hover_sound"]
         self.click_sound_path = config["click_sound"]
 
+        self.args = config["args"]
+
+
         self.layer = 0
         
         # Load sounds
-        #self.hover_sound = pygame.mixer.Sound(self.hover_sound_path)
-        #self.click_sound = pygame.mixer.Sound(self.click_sound_path)
+        # self.hover_sound = pygame.mixer.Sound(self.hover_sound_path)
+        # self.click_sound = pygame.mixer.Sound(self.click_sound_path)
         
         # Button state
         self.rect = pygame.Rect(self.position, self.size)
@@ -69,8 +72,8 @@ class Button():
         
         return False  # Indicate no click
 
-# Function to load button configuration from a JSON file
-def load_button_from_config(file_path):
+# Function to load GUI elements from a JSON file
+def load_buttons_from_config(file_path):
     with open(file_path, 'r') as f:
         config = json.load(f)
-    return Button(config['button'])
+    return [Button(x) for x in config['buttons']]

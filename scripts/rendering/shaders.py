@@ -40,6 +40,29 @@ class ShaderContext():
         self.program['tex'] = 0
         self.program['ui_surf'] = 1
 
+        self.program['screen_size'].value = display.get_size()
+
+
+        class Light:
+            def __init__(self, pos, radius, intensity, color):
+                self.pos = pos
+                self.radius = radius
+                self.intensity = intensity
+                self.color = color
+
+        myLight = Light((400.0, 300.0), 100.0, 0.2, (1.0, 1.0, 1.0))
+        myLight2 = Light((100.0, 100.0), 200.0, 0.5, (1.0, 0, 0))
+
+        lights = [myLight, myLight2]
+
+        self.program["num_lights"] = len(lights)
+
+        for i, light in enumerate(lights):
+            self.program[f'lights[{i}].position'].value = light.pos
+            self.program[f'lights[{i}].radius'].value = light.radius
+            self.program[f'lights[{i}].intensity'].value = light.intensity
+            self.program[f'lights[{i}].color'].value = light.color
+
         #self.program['time'] = self.time
         self.render_object.render(mode=moderngl.TRIANGLE_STRIP)
         
@@ -138,10 +161,72 @@ void main() {
     vec4 textureColor = texture(tex, uvs);
     f_color = vec4(textureColor.rgba);
 
-    // Don't apply vignette to UI
+    // Don't apply any effects to UI
     vec4 ui_color = texture(ui_surf, uvs);
     if (ui_color.a > 0) {
         f_color = ui_color;
   }
 }
 '''
+
+frag_shader = """#version 330 core
+
+#define MAX_LIGHTS 64
+
+uniform sampler2D tex;
+uniform sampler2D ui_surf;
+
+uniform vec2 screen_size;   // (width, height) in pixels
+uniform int num_lights;
+
+struct PointLight {
+    vec2 position;    // pixel-space position
+    float radius;     // radius in pixels
+    float intensity;  // brightness scalar
+    vec3 color;       // normalized RGB
+};
+
+uniform PointLight lights[MAX_LIGHTS];
+
+in vec2 uvs;
+out vec4 f_color;
+
+void main() {
+
+    // Convert fragment to pixel space
+    vec2 frag_px = uvs * screen_size;
+
+    vec4 base_color = texture(tex, uvs);
+
+    // UI pass-through
+    vec4 ui_color = texture(ui_surf, uvs);
+    if (ui_color.a > 0.0) {
+        f_color = ui_color;
+        return;
+    }
+
+    vec3 lighting = vec3(0.0);
+
+    for (int i = 0; i < num_lights; i++) {
+        PointLight light = lights[i];
+
+        vec2 d = frag_px - light.position;
+        float dist = length(d);
+
+        if (dist >= light.radius) continue;
+
+        // Gaussian falloff (smooth, no hard edge)
+        float x = dist / light.radius;
+        float attenuation = exp(-x * x * 4.0);
+
+        lighting += light.color * light.intensity * attenuation;
+    }
+
+    vec3 lit_color = base_color.rgb + lighting;
+
+    // Clamp to avoid overflow
+    lit_color = min(lit_color, vec3(1.0));
+
+    f_color = vec4(lit_color, max(base_color.a, length(lighting)));
+}
+"""

@@ -11,7 +11,7 @@ from scripts.game.states.main import Main
 from scripts.game.states.menu import Menu
 
 #===== Player =====#
-from scripts.entities.player import Player
+from scripts.entities.player import PlayerTopDown
 
 #===== Events =====#
 from scripts.events.events import EventHandler
@@ -26,7 +26,7 @@ class Game():
     Each state in the state machine contains a game state,
     such as a menu, main loop, credits, cutscene, etc.
     '''
-    def __init__(self, config=None):
+    def __init__(self, start="main", config=None):
         '''
         Any 'global' variables that the states need to access should 
         accessible from the Game class
@@ -42,7 +42,7 @@ class Game():
         pygame.display.set_caption("Pynamo") # load from config
 
         #===== Player =====#
-        self.player = Player()
+        self.player = PlayerTopDown()
 
         #===== Define States =====#
         self.state_machine = state_machine
@@ -51,7 +51,7 @@ class Game():
             "menu": Menu(game=self)
         }
         self.state_machine.init_states(states=self.states)
-        self.state_machine.set_state("main") # begin on menu state
+        self.state_machine.set_state(start) # begin on menu state
 
         self.running = True
 

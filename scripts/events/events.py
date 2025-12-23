@@ -10,7 +10,8 @@ class EventHandler():
             "right":0,
             "left":0,
             "up":0,
-            "down":0
+            "down":0,
+            "space": 0,
         }
 
         self.zoom = {
@@ -25,7 +26,6 @@ class EventHandler():
             if event.type == pygame.QUIT:
                 self.game.running = False
                 
-
             elif event.type == pygame.KEYDOWN:
 
                 #===== Arrow Keys =====#
@@ -50,6 +50,10 @@ class EventHandler():
                     if self.arrow_keys["left"] == 2:
                         self.arrow_keys["left"] = 1
 
+                # Other Keys
+                elif event.key == pygame.K_SPACE:
+                    self.arrow_keys["space"] = 1
+
 
             elif event.type == pygame.KEYUP:
                 
@@ -70,3 +74,7 @@ class EventHandler():
                     self.arrow_keys["right"] = 0
                     if self.arrow_keys["left"] == 1:
                         self.arrow_keys["left"] = 2
+
+                # Other Keys
+                elif event.key == pygame.K_SPACE:
+                    self.arrow_keys["space"] = 0
